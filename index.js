@@ -115,21 +115,22 @@ SpecCov.prototype.check = function() {
        color('bright pass', 'ok for ' + npass + ' files')
   );
 
-  var gcovpass = gcov.coverage < gthreshold,
+  var gcovpass = gcov.coverage >= gthreshold,
       gcovpercent = Math.floor(gcov.coverage) + '%';
 
   console.log(
     color('pass', '  Global code coverage ') +
     (gcovpass ?
-       color('fail', 'below the threshold at ' + gcovpercent) :
-       color('bright pass', 'above the threshold at ' + gcovpercent))
+       color('bright pass', 'above the threshold at ' + gcovpercent) :
+       color('fail', 'below the threshold at ' + gcovpercent))
   );
   console.log();
 
-  if(!gcovpass || nfail) {
+  if(!gcovpass || nfail !== 0) {
     process && process.exit(1);
     return false;
   }
+  return true;
 };
 
 // Map a jscoverage data node into a easily parseable object.
