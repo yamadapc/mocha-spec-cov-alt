@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>index.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>A Mocha reporter, which extends the <code>spec</code> runner to display and (optionally)
+enforce blanket Code Coverage metrics. Applying it to other runners, should
+be as simple as replacing the <code>.super_</code> <code>SpecCov</code> property.</p>
+<p>This was heavily inspired by Alex Seville’s work on the
+<a href="https://github.com/alex-seville/travis-cov"><code>travis-cov</code></a>.</p>
+<p>To use it, add the key <code>&quot;spec-cov&quot;</code> to the <code>blanket: { &quot;config&quot;: {} }</code> node
+in your <code>package.json</code> file. Currently supported options are:</p>
+<ul>
+<li><code>threshold</code> - A global threshold to enforce. (defaults to 80)</li>
+<li><code>localThreshold</code> - A local threshold to enforce.</li>
+</ul>
+<p>The annotated source is avaible at <strong><em>_</em></strong> and was generated with dokku.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>),
+    path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>),
+    util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>),
+    Mocha = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mocha'</span>);
+
+<span class="hljs-keyword">var</span> defineProperty = <span class="hljs-built_in">Object</span>.defineProperty, keys = <span class="hljs-built_in">Object</span>.keys;
+<span class="hljs-keyword">var</span> inherits = util.inherits;
+<span class="hljs-keyword">var</span> join = path.join;
+<span class="hljs-keyword">var</span> Base = Mocha.reporters.Base, Spec = Mocha.reporters.Spec, color = Base.color;
+
+<span class="hljs-keyword">var</span> CWD = process.cwd();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Expose the SpecCov reporter</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>exports = module.exports = SpecCov;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Initializes a new <code>SpecCov</code> test reporter, given a <code>runner</code> Mocha
+<a href="http://git.io/0bzcAw"><code>Runner</code></a>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">SpecCov</span><span class="hljs-params">(runner)</span> {</span>
+  <span class="hljs-keyword">this</span>.constructor.super_.call(<span class="hljs-keyword">this</span>, runner);
+  <span class="hljs-keyword">this</span>.attachEvents(runner);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>The prototype chain and <code>super_</code> property are set here.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>inherits(SpecCov, Spec);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Attaches coverage repoting and enforcing events to the <code>runner</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>SpecCov.prototype.attachEvents = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(runner)</span> {</span>
+  runner.on(<span class="hljs-string">'end'</span>, <span class="hljs-keyword">this</span>.check.bind(<span class="hljs-keyword">this</span>));
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Checks and displays code coverage.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>SpecCov.prototype.check = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+  <span class="hljs-keyword">var</span> covData = global._$jscoverage;
+
+  <span class="hljs-keyword">if</span>(!covData) <span class="hljs-keyword">return</span>;
+
+  <span class="hljs-keyword">var</span> gthreshold = <span class="hljs-keyword">this</span>.options.threshold,
+      lthreshold = <span class="hljs-keyword">this</span>.options.localThreshold;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Print the header</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  console.log(color(<span class="hljs-string">'suite'</span>, <span class="hljs-string">'  Code coverage report:'</span>));
+  console.log(color(<span class="hljs-string">'bright yellow'</span>, <span class="hljs-string">'  Global threshold - '</span> + gthreshold));
+  <span class="hljs-keyword">if</span>(lthreshold)
+    console.log(color(<span class="hljs-string">'bright yellow'</span>, <span class="hljs-string">'  Local threshold - '</span> + lthreshold));
+  console.log();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Analyse and print local coverage reports</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> fnames = keys(covData),
+      failed = [],
+      gcov = {
+        hits: <span class="hljs-number">0</span>,
+        misses: <span class="hljs-number">0</span>,
+        sloc: <span class="hljs-number">0</span>
+      };
+
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = fnames.length; i &lt; len; i++) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Remove trash out of the fname.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> fname = fnames[i],
+        data = covData[fname],
+        cleanfname = fname.replace(CWD, <span class="hljs-string">''</span>).slice(<span class="hljs-number">1</span>),
+        lcov = exports.coverage(data, lthreshold);
+
+    gcov.hits += lcov.hits;
+    gcov.misses += lcov.misses;
+    gcov.sloc += lcov.sloc;
+
+    <span class="hljs-keyword">if</span>(lcov.ok) {
+      console.log(
+        <span class="hljs-string">'    '</span> +
+        color(<span class="hljs-string">'checkmark'</span>, Base.symbols.ok) + <span class="hljs-string">' '</span> +
+        color(<span class="hljs-string">'pass'</span>, cleanfname) +
+        color(<span class="hljs-string">'pass'</span>, <span class="hljs-string">' - '</span> + lcov.sloc + <span class="hljs-string">' sloc '</span>) +
+        color(<span class="hljs-string">'green'</span>, <span class="hljs-string">'('</span> + <span class="hljs-built_in">Math</span>.floor(lcov.coverage) + <span class="hljs-string">'%'</span> + <span class="hljs-string">')'</span>)
+      );
+    }
+    <span class="hljs-keyword">else</span> {
+      failed.push(fname);
+
+      console.log(
+        <span class="hljs-string">'    '</span> +
+        color(<span class="hljs-string">'fail'</span>, Base.symbols.err) + <span class="hljs-string">' '</span> +
+        color(<span class="hljs-string">'pass'</span>, cleanfname) +
+        color(<span class="hljs-string">'pass'</span>, <span class="hljs-string">' - '</span> + lcov.sloc + <span class="hljs-string">' sloc '</span>) +
+        color(<span class="hljs-string">'fail'</span>, <span class="hljs-string">'('</span> + <span class="hljs-built_in">Math</span>.floor(lcov.coverage) + <span class="hljs-string">'%'</span> + <span class="hljs-string">')'</span>)
+      );
+    }
+  }
+
+  gcov.coverage = gcov.hits / gcov.sloc * <span class="hljs-number">100</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Print the summary.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  console.log();
+  <span class="hljs-keyword">var</span> nfail = failed.length, npass = fnames.length - nfail;
+  console.log(
+    color(<span class="hljs-string">'pass'</span>, <span class="hljs-string">'  Local code coverage '</span>) +
+    (nfail ?
+       color(<span class="hljs-string">'fail'</span>, <span class="hljs-string">'failing for '</span> + nfail) + color(<span class="hljs-string">'pass'</span>,  <span class="hljs-string">' and '</span>) : <span class="hljs-string">''</span>) +
+       color(<span class="hljs-string">'bright pass'</span>, <span class="hljs-string">'ok for '</span> + npass + <span class="hljs-string">' files'</span>)
+  );
+
+  <span class="hljs-keyword">var</span> gcovpass = gcov.coverage &lt; gthreshold,
+      gcovpercent = <span class="hljs-built_in">Math</span>.floor(gcov.coverage) + <span class="hljs-string">'%'</span>;
+
+  console.log(
+    color(<span class="hljs-string">'pass'</span>, <span class="hljs-string">'  Global code coverage '</span>) +
+    (gcovpass ?
+       color(<span class="hljs-string">'fail'</span>, <span class="hljs-string">'below the threshold at '</span> + gcovpercent) :
+       color(<span class="hljs-string">'bright pass'</span>, <span class="hljs-string">'above the threshold at '</span> + gcovpercent))
+  );
+  console.log();
+
+  <span class="hljs-keyword">if</span>(!gcovpass || nfail) {
+    process &amp;&amp; process.exit(<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Map a jscoverage data node into a easily parseable object.
+Mainly extracted from the <a href="http://git.io/9nZJxA"><code>json-cov</code></a> mocha reporter,
+with some performance improvements.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>exports.coverage = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">coverage</span><span class="hljs-params">(data, threshold)</span> {</span>
+  <span class="hljs-keyword">var</span> ret = {
+    coverage: <span class="hljs-number">0</span>,
+    hits: <span class="hljs-number">0</span>,
+    misses: <span class="hljs-number">0</span>,
+    sloc: <span class="hljs-number">0</span>,
+    ok: <span class="hljs-literal">true</span> <span class="hljs-comment">// Represents whether coverage is above threshold</span>
+  };
+
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = data.source.length; i &lt; len; i++) {
+    <span class="hljs-keyword">var</span> num = i + <span class="hljs-number">1</span>;
+
+    <span class="hljs-keyword">if</span>(data[num] === <span class="hljs-number">0</span>) {
+      ret.misses++;
+      ret.sloc++;
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(data[num] !== <span class="hljs-literal">undefined</span>) {
+      ret.hits++;
+      ret.sloc++;
+    }
+  }
+
+  ret.coverage = ret.hits / ret.sloc * <span class="hljs-number">100</span>;
+
+  <span class="hljs-keyword">if</span>(ret.coverage &lt; threshold) ret.ok = <span class="hljs-literal">false</span>;
+
+  <span class="hljs-keyword">return</span> ret;
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Reads and parses the project’s <code>package.json</code> file.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>exports.readPkgJson = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readPkgJson</span><span class="hljs-params">(path)</span> {</span>
+  <span class="hljs-keyword">var</span> pkgJsonPath = path || join(CWD, <span class="hljs-string">'package.json'</span>),
+      pkgJson = <span class="hljs-built_in">JSON</span>.parse(fs.readFileSync(pkgJsonPath, <span class="hljs-string">'utf8'</span>));
+
+  <span class="hljs-keyword">return</span> pkgJson;
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Define an options virtual property.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>defineProperty(SpecCov.prototype, <span class="hljs-string">'options'</span>, {
+  get: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-keyword">var</span> ctor = <span class="hljs-keyword">this</span>.constructor;
+    <span class="hljs-keyword">if</span>(ctor._options) <span class="hljs-keyword">return</span> ctor._options; <span class="hljs-comment">// Return if cached.</span>
+
+    <span class="hljs-keyword">var</span> pkgJson = exports.readPkgJson(),
+        config = pkgJson.config,
+        options = config &amp;&amp; config.blanket &amp;&amp; config.blanket[<span class="hljs-string">'spec-cov'</span>];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Parse default options and set the cache.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    ctor._options = options || {};
+    ctor._options.threshold || (ctor._options.threshold = <span class="hljs-number">80</span>);
+
+    <span class="hljs-keyword">return</span> ctor._options;
+  },
+
+  set: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span> {</span>
+    <span class="hljs-keyword">this</span>.constructor._options = options;
+  }
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
