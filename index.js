@@ -12,7 +12,8 @@
 // - `threshold` - A global threshold to enforce. (defaults to 80)
 // - `localThreshold` - A local threshold to enforce.
 //
-// The annotated source is avaible at _______ and was generated with dokku.
+// The annotated source is avaible at yamadapc.github.io/mocha-spec-cov-alt
+// and was generated with docco.
 //
 var fs = require('fs'),
     path = require('path'),
