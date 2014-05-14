@@ -52,7 +52,8 @@ in your <code>package.json</code> file. Currently supported options are:</p>
 <li><code>threshold</code> - A global threshold to enforce. (defaults to 80)</li>
 <li><code>localThreshold</code> - A local threshold to enforce.</li>
 </ul>
-<p>The annotated source is avaible at <strong><em>_</em></strong> and was generated with dokku.</p>
+<p>The annotated source is avaible at yamadapc.github.io/mocha-spec-cov-alt
+and was generated with docco.</p>
 
             </div>
             
@@ -265,21 +266,22 @@ in your <code>package.json</code> file. Currently supported options are:</p>
        color(<span class="hljs-string">'bright pass'</span>, <span class="hljs-string">'ok for '</span> + npass + <span class="hljs-string">' files'</span>)
   );
 
-  <span class="hljs-keyword">var</span> gcovpass = gcov.coverage &lt; gthreshold,
+  <span class="hljs-keyword">var</span> gcovpass = gcov.coverage &gt;= gthreshold,
       gcovpercent = <span class="hljs-built_in">Math</span>.floor(gcov.coverage) + <span class="hljs-string">'%'</span>;
 
   console.log(
     color(<span class="hljs-string">'pass'</span>, <span class="hljs-string">'  Global code coverage '</span>) +
     (gcovpass ?
-       color(<span class="hljs-string">'fail'</span>, <span class="hljs-string">'below the threshold at '</span> + gcovpercent) :
-       color(<span class="hljs-string">'bright pass'</span>, <span class="hljs-string">'above the threshold at '</span> + gcovpercent))
+       color(<span class="hljs-string">'bright pass'</span>, <span class="hljs-string">'above the threshold at '</span> + gcovpercent) :
+       color(<span class="hljs-string">'fail'</span>, <span class="hljs-string">'below the threshold at '</span> + gcovpercent))
   );
   console.log();
 
-  <span class="hljs-keyword">if</span>(!gcovpass || nfail) {
+  <span class="hljs-keyword">if</span>(!gcovpass || nfail !== <span class="hljs-number">0</span>) {
     process &amp;&amp; process.exit(<span class="hljs-number">1</span>);
     <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
   }
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
 };</pre></div></div>
             
         </li>
