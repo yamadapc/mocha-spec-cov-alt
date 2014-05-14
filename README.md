@@ -7,6 +7,8 @@ be as simple as replacing the `.super_` `SpecCov` property.
 This was heavily inspired by Alex Seville's work on the
 [`travis-cov`](https://github.com/alex-seville/travis-cov).
 
+![screenshot][screenshot.png]
+
 Install it with:
 ```
 npm install mocha-spec-cov-alt
