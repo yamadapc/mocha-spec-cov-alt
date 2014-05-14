@@ -1,0 +1,22 @@
+{
+  "version": "0.0.1",
+  "name": "spec-cov-alt",
+  "description": "Mocha/blanket spec coverage reporter and enforcer.",
+  "keywords": [
+    "tdd",
+    "travis",
+    "mocha",
+    "blanket",
+    "test",
+    "coverage"
+  ],
+  "author": "Pedro Yamada",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yamadapc/mocha-spec-cov-alt"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "mocha": "^1.18.2"
+  }
+}

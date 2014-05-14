@@ -1,0 +1,14 @@
+{
+    "globals": [
+      "exports"
+    ],
+    "eqnull": true,
+    "expr": true,
+    "noarg": true,
+    "node": true,
+    "trailing": true,
+    "unused": true,
+    "laxbreak": true,
+    "laxcomma": true,
+    "browser": true
+}
