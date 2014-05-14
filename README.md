@@ -20,8 +20,8 @@ in your `package.json` file. Currently supported options are:
 - `threshold` - A global threshold to enforce. (defaults to 80)
 - `localThreshold` - A local threshold to enforce.
 
-The annotated source is avaible at yamadapc.github.io/mocha-spec-cov-alt and was
-generated with dokku.
+The annotated source is avaible at https://yamadapc.github.io/mocha-spec-cov-alt
+and was generated with docco.
 
 ## License
 Copyright (c) 2014 Pedro Tacla Yamada. Licensed under the MIT license.
