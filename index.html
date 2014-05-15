@@ -11,6 +11,27 @@
   <div id="container">
     <div id="background"></div>
     
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="index.html">
+                index.js
+              </a>
+            
+              
+              <a class="source" href="lcov.html">
+                lcov.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
     <ul class="sections">
         
           <li id="title">
@@ -44,15 +65,23 @@
               <p>A Mocha reporter, which extends the <code>spec</code> runner to display and (optionally)
 enforce blanket Code Coverage metrics. Applying it to other runners, should
 be as simple as replacing the <code>.super_</code> <code>SpecCov</code> property.</p>
+<p><img src="screenshot.png" alt="screenshot"></p>
 <p>This was heavily inspired by Alex Seville’s work on the
 <a href="https://github.com/alex-seville/travis-cov"><code>travis-cov</code></a>.</p>
-<p>To use it, add the key <code>&quot;spec-cov&quot;</code> to the <code>blanket: { &quot;config&quot;: {} }</code> node
+<p>Install it with:</p>
+<pre><code>npm install mocha-spec-cov-alt
+</code></pre><p>To use it, add the key <code>&quot;spec-cov&quot;</code> to the <code>&quot;config&quot;: { &quot;blanket&quot;: {} }</code> node
 in your <code>package.json</code> file. Currently supported options are:</p>
 <ul>
 <li><code>threshold</code> - A global threshold to enforce. (defaults to 80)</li>
 <li><code>localThreshold</code> - A local threshold to enforce.</li>
+<li><code>lcovOutput</code> - A path to a file to output <code>lcov</code> data to, for use with
+CodeClimate or CoverAlls. (by default, the file won’t be generated)</li>
 </ul>
-<p>The annotated source is avaible at yamadapc.github.io/mocha-spec-cov-alt
+<p>You should then run mocha with:</p>
+<pre><code>mocha --<span class="hljs-built_in">require</span> blanket -R mocha-spec-cov-alt
+</code></pre><p>For more info on setting-up blanket, see: <a href="https://github.com/alex-seville/blanket">https://github.com/alex-seville/blanket</a></p>
+<p>The annotated source is avaible at <a href="https://yamadapc.github.io/mocha-spec-cov-alt">https://yamadapc.github.io/mocha-spec-cov-alt</a>
 and was generated with docco.</p>
 
             </div>
@@ -60,7 +89,8 @@ and was generated with docco.</p>
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>),
     path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>),
     util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>),
-    Mocha = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mocha'</span>);
+    Mocha = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mocha'</span>),
+    LCov = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./lcov'</span>);
 
 <span class="hljs-keyword">var</span> defineProperty = <span class="hljs-built_in">Object</span>.defineProperty, keys = <span class="hljs-built_in">Object</span>.keys;
 <span class="hljs-keyword">var</span> inherits = util.inherits;
@@ -275,6 +305,14 @@ and was generated with docco.</p>
        color(<span class="hljs-string">'bright pass'</span>, <span class="hljs-string">'above the threshold at '</span> + gcovpercent) :
        color(<span class="hljs-string">'fail'</span>, <span class="hljs-string">'below the threshold at '</span> + gcovpercent))
   );
+
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.options.lcovOutput) {
+    (<span class="hljs-keyword">new</span> LCov(covData)).toFile(join(CWD, <span class="hljs-keyword">this</span>.options.lcovOutput));
+    console.log(
+      color(<span class="hljs-string">'pass'</span>, <span class="hljs-string">'  lcov data written to '</span> + <span class="hljs-keyword">this</span>.options.lcovOutput)
+    );
+  }
+
   console.log();
 
   <span class="hljs-keyword">if</span>(!gcovpass || nfail !== <span class="hljs-number">0</span>) {
