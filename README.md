@@ -20,6 +20,13 @@ in your `package.json` file. Currently supported options are:
 - `threshold` - A global threshold to enforce. (defaults to 80)
 - `localThreshold` - A local threshold to enforce.
 
+You should then run mocha with:
+```
+mocha --require blanket -R mocha-spec-cov-alt
+```
+
+For more info on setting-up blanket, see: https://github.com/alex-seville/blanket
+
 The annotated source is avaible at https://yamadapc.github.io/mocha-spec-cov-alt
 and was generated with docco.
 
