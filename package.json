@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "name": "mocha-spec-cov-alt",
   "description": "Mocha/blanket spec coverage reporter and enforcer.",
   "keywords": [
@@ -16,7 +16,7 @@
     "url": "https://github.com/yamadapc/mocha-spec-cov-alt"
   },
   "main": "lib/index.js",
-  "dependencies": {
+  "peerDependencies": {
     "mocha": "^1.18.2"
   }
 }
