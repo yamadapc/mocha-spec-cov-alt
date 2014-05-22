@@ -1,5 +1,7 @@
 mocha-spec-cov-alt
 ==================
+[![Gitter chat](https://badges.gitter.im/yamadapc/mocha-spec-cov-alt.png)](https://gitter.im/yamadapc/mocha-spec-cov-alt)
+
 A Mocha reporter, which extends the `spec` runner to display and (optionally)
 enforce blanket Code Coverage metrics. Applying it to other runners, should
 be as simple as replacing the `.super_` `SpecCov` property.
