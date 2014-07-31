@@ -6,6 +6,9 @@ A Mocha reporter, which extends the `spec` runner to display and (optionally)
 enforce blanket Code Coverage metrics. Applying it to other runners, should
 be as simple as replacing the `.super_` `SpecCov` property.
 
+I wrote a [blog post about it](http://blog.yamadapc.com.br/code-coverage-enforcement-for-nodejs)
+a while back.
+
 ![screenshot](screenshot.png)
 
 This was heavily inspired by Alex Seville's work on the
