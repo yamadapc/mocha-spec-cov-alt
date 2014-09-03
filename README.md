@@ -1,6 +1,8 @@
 mocha-spec-cov-alt
 ==================
 [![Gitter chat](https://badges.gitter.im/yamadapc/mocha-spec-cov-alt.png)](https://gitter.im/yamadapc/mocha-spec-cov-alt)
+[![Analytics](https://ga-beacon.appspot.com/UA-54450544-1/mocha-spec-cov-alt/README)](https://github.com/igrigorik/ga-beacon)
+- - -
 
 A Mocha reporter, which extends the `spec` runner to display and (optionally)
 enforce blanket Code Coverage metrics. Applying it to other runners, should
