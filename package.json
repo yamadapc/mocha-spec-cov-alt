@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "name": "mocha-spec-cov-alt",
   "description": "Mocha/blanket spec coverage reporter and enforcer.",
   "keywords": [
@@ -17,6 +17,6 @@
   },
   "main": "lib/index.js",
   "peerDependencies": {
-    "mocha": "^1.18.2"
+    "mocha": "^2.0.1"
   }
 }

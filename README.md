@@ -1,6 +1,7 @@
 mocha-spec-cov-alt
 ==================
 [![Gitter chat](https://badges.gitter.im/yamadapc/mocha-spec-cov-alt.png)](https://gitter.im/yamadapc/mocha-spec-cov-alt)
+[![peerDependency Status](https://david-dm.org/yamadapc/mocha-spec-cov-alt/peer-status.svg)](https://david-dm.org/yamadapc/mocha-spec-cov-alt#info=peerDependencies)
 [![Analytics](https://ga-beacon.appspot.com/UA-54450544-1/mocha-spec-cov-alt/README)](https://github.com/igrigorik/ga-beacon)
 - - -
 
