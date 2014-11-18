@@ -22,6 +22,37 @@ Install it with:
 npm install mocha-spec-cov-alt
 ```
 
+## Simple usage
+The easiest way to set this up, right now, is to run:
+```bash
+$ npm i -g mocha-spec-cov-alt
+# ...
+/usr/local/bin/mocha-spec-cov-alt -> /usr/local/lib/node_modules/mocha-spec-cov-alt/bin/index.js
+mocha-spec-cov-alt@0.2.0 /usr/local/lib/node_modules/mocha-spec-cov-alt
+$ mocha-spec-cov-alt
+Adding mocha-spec-cov-alt to your package.json... OK
+Adding `mocha`, `mocha-spec-cov-alt` and `blanket` through npm:
+mocha@2.0.1 node_modules/mocha
+├── escape-string-regexp@1.0.2
+├── diff@1.0.8
+├── growl@1.8.1
+├── commander@2.3.0
+├── jade@0.26.3 (commander@0.6.1, mkdirp@0.3.0)
+├── debug@2.0.0 (ms@0.6.2)
+├── mkdirp@0.5.0 (minimist@0.0.8)
+└── glob@3.2.3 (inherits@2.0.1, graceful-fs@2.0.3, minimatch@0.2.14)
+
+blanket@1.1.6 node_modules/blanket
+├── falafel@0.1.6
+├── esprima@1.0.4
+└── xtend@2.1.2 (object-keys@0.4.0)
+```
+
+This will automatically add all the required nodes to your `package.json` file,
+install the dependencies and quit. You can then run tests with `npm test`.
+
+## Usage
+
 To use it, add the key `"spec-cov"` to the `"config": { "blanket": {} }` node
 in your `package.json` file. Currently supported options are:
 
