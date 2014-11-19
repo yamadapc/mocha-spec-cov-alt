@@ -19,8 +19,12 @@ try {
 }
 
 if(!json.scripts) json.scripts = {};
-if(json.scripts.test) json.scripts.test += ' &&';
-json.scripts.test = json.scripts.test || '' + 'mocha --require blanket';
+
+if(json.scripts.test) {
+  json.scripts.test += ' &&  mocha --require blanket -R mocha-spec-cov-alt';
+} else {
+  json.scripts.test = 'mocha --require blanket -R mocha-spec-cov-alt';
+}
 
 if(!json.config) json.config = {};
 json.config.blanket = extend({
