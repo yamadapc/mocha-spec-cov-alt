@@ -28,7 +28,7 @@ if(json.scripts.test) {
 
 if(!json.config) json.config = {};
 json.config.blanket = extend({
-  'dave-cover-never': ['node_modules', 'test'],
+  'data-cover-never': ['node_modules', 'test'],
   'pattern': [
     'lib', 'YOUR', 'MODULE', 'DIRECTORIES', 'HERE'
   ],
