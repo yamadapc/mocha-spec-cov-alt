@@ -1,5 +1,5 @@
 {
-  "version": "0.2.3",
+  "version": "0.2.4",
   "name": "mocha-spec-cov-alt",
   "bin": "bin/index.js",
   "description": "Mocha/blanket spec coverage reporter and enforcer.",
