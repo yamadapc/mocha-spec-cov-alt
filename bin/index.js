@@ -26,6 +26,14 @@ if(json.scripts.test && json.scripts.test.indexOf('mocha-spec-cov-alt') === -1) 
   json.scripts.test = 'mocha --require blanket -R mocha-spec-cov-alt';
 }
 
+function usesHtmlCov(script) {
+  return script.indexOf('html-cov') !== -1;
+}
+
+if(!any(json.scripts, usesHtmlCov)) {
+  json.scripts['test-html-cov'] = 'mocha --require blanket -R html-cov > coverage.html';
+}
+
 if(!json.config) json.config = {};
 json.config.blanket = extend({
   'data-cover-never': [
@@ -48,6 +56,21 @@ var npm = child.spawn('npm', [
   'install', '--save-dev', 'mocha-spec-cov-alt', 'mocha@2.1', 'blanket',
 ]);
 npm.stdout.pipe(process.stdout);
+
+/**
+ * Applies a predicate to collection and returns true if any of the items match
+ * it
+ */
+
+function any(target, fn) {
+  var keys = Object.keys(target);
+  for(var i = 0, len = keys.length; i < len; i++) {
+    var key = keys[i];
+    var value = target[key];
+    if(fn(value, key)) return true;
+  }
+  return false;
+}
 
 /**
  * Merges two objects together, overwriting the second's properties onto the
