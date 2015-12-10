@@ -20,7 +20,7 @@ try {
 
 if(!json.scripts) json.scripts = {};
 
-if(json.scripts.test) {
+if(json.scripts.test && json.scripts.test.indexOf('mocha-spec-cov-alt') === -1) {
   json.scripts.test += ' &&  mocha --require blanket -R mocha-spec-cov-alt';
 } else {
   json.scripts.test = 'mocha --require blanket -R mocha-spec-cov-alt';
