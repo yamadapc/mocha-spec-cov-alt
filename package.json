@@ -20,6 +20,6 @@
   "peerDependencies": {},
   "devDependencies": {
     "blanket": "^1.2.1",
-    "mocha": "^2.3.4"
+    "mocha": "^2.4.2"
   }
 }
