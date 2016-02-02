@@ -53,7 +53,7 @@ fs.writeFileSync(pkgjsonpth, JSON.stringify(json, null, 2));
 process.stdout.write(' OK\n');
 console.log('Adding `mocha`, `mocha-spec-cov-alt` and `blanket` through npm:');
 var npm = child.spawn('npm', [
-  'install', '--save-dev', 'mocha-spec-cov-alt', 'mocha@2.1', 'blanket',
+  'install', '--save-dev', 'mocha-spec-cov-alt', 'mocha', 'blanket@1.1.7',
 ]);
 npm.stdout.pipe(process.stdout);
 
